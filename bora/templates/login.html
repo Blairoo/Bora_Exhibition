@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script>
+    </script>
+</head>
+
+<body>
+    {% if name %}
+    {{name}}님 환영합니다.
+    {% endif %}
+    <form action="http://49.50.164.62:8000/bora/" method="post">
+        {% csrf_token %}
+        ID: <input type="text" value="{{id}}" name="loginid"><br>
+        Password: <input type="password" value="{{pw}}" name="loginpw">
+        <button type="submit">LogIn</button>
+    </form>
+</body>
+
+</html>

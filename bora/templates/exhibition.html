@@ -1,0 +1,276 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+    integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+<!-- jQuery and Bootstrap Bundle (includes Popper) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous">
+</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
+    .img-thumbnail {
+        min-width: auto;
+    }
+</style>
+<script>
+    function ex() {
+        if ($("#list-past-list").hasClass("acitve")) {
+            $("#list-past").addClass("fade active")
+        }
+    }
+</script>
+<!-- <div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="list-group list-group-horizontal text-center" id="list-tab" role="tablist">
+                <a class="list-group-item list-group-item-action" id="list-past-list" data-toggle="list"
+                    href="#list-past" role="tab" aria-controls="past">past</a>
+                <a class="list-group-item list-group-item-action" id="list-current-list" data-toggle="list"
+                    href="#list-current" role="tab" aria-controls="current">current</a>
+                <a class="list-group-item list-group-item-action" id="list-upcoming-list" data-toggle="list"
+                    href="#list-upcoming" role="tab" aria-controls="upcoming">upcoming</a>
+            </div>
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade" id="list-past" role="tabpanel" aria-labelledby="list-past-list">
+                    {% for p in past %}
+                    <img src="media/{{p.exhimage}}" class="img-thumbnail">
+                    <div>{{p.exhname}}</div>
+                    <div>{{p.exhstart}}</div>
+                    <div>{{p.exhend}}</div>
+                    {% endfor %}
+                </div>
+                <div class="tab-pane fade" id="list-current" role="tabpanel"
+                    aria-labelledby="list-current-list">
+                    {% for c in current %}
+                    <img src="media/{{c.exhimage}}" class="img-thumbnail">
+                    <div>{{c.exhname}}</div>
+                    <div>{{c.exhstart}}</div>
+                    <div>{{c.exhend}}</div>
+                    {% endfor %}
+
+                </div>
+                <div class="tab-pane fade" id="list-upcoming" role="tabpanel" aria-labelledby="list-upcoming-list">
+                    {% for u in upcoming %}
+                    <img src="media/{{u.exhimage}}" class="img-thumbnail">
+                    <div>{{u.exhname}}</div>
+                    <div>{{u.exhstart}}</div>
+                    <div>{{u.exhend}}</div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+<script>
+    filterSelection("all")
+
+    function filterSelection(c) {
+        var x, i;
+        x = document.getElementsByClassName("filterDiv");
+        if (c == "all") c = "";
+        // Add the "show" class (display:block) to the filtered elements, and remove the "show" class from the elements that are not selected
+        for (i = 0; i < x.length; i++) {
+            w3RemoveClass(x[i], "show");
+            if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
+        }
+    }
+
+    // Show filtered elements
+    function w3AddClass(element, name) {
+        var i, arr1, arr2;
+        arr1 = element.className.split(" ");
+        arr2 = name.split(" ");
+        for (i = 0; i < arr2.length; i++) {
+            if (arr1.indexOf(arr2[i]) == -1) {
+                element.className += " " + arr2[i];
+            }
+        }
+    }
+
+    // Hide elements that are not selected
+    function w3RemoveClass(element, name) {
+        var i, arr1, arr2;
+        arr1 = element.className.split(" ");
+        arr2 = name.split(" ");
+        for (i = 0; i < arr2.length; i++) {
+            while (arr1.indexOf(arr2[i]) > -1) {
+                arr1.splice(arr1.indexOf(arr2[i]), 1);
+            }
+        }
+        element.className = arr1.join(" ");
+    }
+
+    // Add active class to the current control button (highlight it)
+    var btnContainer = document.getElementById("myBtnContainer");
+    var btns = btnContainer.getElementsByClassName("btn");
+    for (var i = 0; i < btns.length; i++) {
+        btns[i].addEventListener("click", function () {
+            var current = document.getElementsByClassName("active");
+            current[0].className = current[0].className.replace(" active", "");
+            this.className += " active";
+        });
+    }
+</script>
+<style>
+    .container {
+        overflow: hidden;
+    }
+
+    .filterDiv {
+        float: left;
+        background-color: #2196F3;
+        color: #ffffff;
+        width: 100px;
+        line-height: 100px;
+        text-align: center;
+        margin: 2px;
+        display: none;
+        /* Hidden by default */
+    }
+
+    /* The "show" class is added to the filtered elements */
+    .show {
+        display: block;
+    }
+
+    /* Style the buttons */
+    .btn {
+        border: none;
+        outline: none;
+        padding: 12px 16px;
+        background-color: #f1f1f1;
+        cursor: pointer;
+    }
+
+    /* Add a light grey background on mouse-over */
+    .btn:hover {
+        background-color: #ddd;
+    }
+
+    /* Add a dark background to the active button */
+    .btn.active {
+        background-color: #666;
+        color: white;
+    }
+</style>
+<section class="gallery-section">
+    <div class="gallery-header">
+        <h4>Gallery</h4>
+        <ul class="gallery-filter">
+            <btn class="filter all active" data-filter="*" onclick="filterSelection('all')">All</btn>
+            <!-- 처음 active 상태가 안됨 -->
+            <li class="filter" data-filter=".featured" onclick="filterSelection('featured')">Featured</li>
+            <li class="filter" data-filter=".people" onclick="filterSelection('people')">People</li>
+            <li class="filter" data-filter=".nature"onclick="filterSelection('nature')">Nature</li>
+            <li class="filter" data-filter=".animal" onclick="filterSelection('animal')">Animal</li>
+            <li class="filter" data-filter=".travel" onclick="filterSelection('travel')">Travel</li>
+        </ul>
+    </div>
+    <div class="nice-scroll">
+        <div class="gallery-warp">
+            <div class="grid-sizer"></div>
+            <div class="gallery-item gi-big featured filterDiv">
+                <a class="fresco" href="img/gallery/1.jpg" data-fresco-group="projects">
+                    <img src="img/gallery/1.jpg" alt="">
+                </a>
+                <div class="gi-hover">
+                    <img src="img/gallery/author.jpg" alt="">
+                    <h6>Arthur Rose</h6>
+                </div>
+            </div>
+            <div class="gallery-item people  filterDiv">
+                <a class="fresco" href="img/gallery/2.jpg" data-fresco-group="projects">
+                    <img src="img/gallery/2.jpg" alt="">
+                </a>
+                <div class="gi-hover">
+                    <img src="img/gallery/author.jpg" alt="">
+                    <h6>Arthur Rose</h6>
+                </div>
+            </div>
+            <div class="gallery-item nature filterDiv">
+                <a class="fresco" href="img/gallery/3.jpg" data-fresco-group="projects">
+                    <img src="img/gallery/3.jpg" alt="">
+                </a>
+                <div class="gi-hover">
+                    <img src="img/gallery/author.jpg" alt="">
+                    <h6>Arthur Rose</h6>
+                </div>
+            </div>
+            <div class="gallery-item gi-long travel filterDiv">
+                <a class="fresco" href="img/gallery/4.jpg" data-fresco-group="projects">
+                    <img src="img/gallery/4.jpg" alt="">
+                </a>
+                <div class="gi-hover">
+                    <img src="img/gallery/author.jpg" alt="">
+                    <h6>Arthur Rose</h6>
+                </div>
+            </div>
+            <div class="gallery-item gi-big animal filterDiv">
+                <a class="fresco" href="img/gallery/6.jpg" data-fresco-group="projects">
+                    <img src="img/gallery/6.jpg" alt="">
+                </a>
+                <div class="gi-hover">
+                    <img src="img/gallery/author.jpg" alt="">
+                    <h6>Arthur Rose</h6>
+                </div>
+            </div>
+            <div class="gallery-item gi-big featured filterDiv">
+                <a class="fresco" href="img/gallery/5.jpg" data-fresco-group="projects">
+                    <img src="img/gallery/5.jpg" alt="">
+                </a>
+                <div class="gi-hover">
+                    <img src="img/gallery/author.jpg" alt="">
+                    <h6>Arthur Rose</h6>
+                </div>
+            </div>
+            <div class="gallery-item travel filterDiv">
+                <a class="fresco" href="img/gallery/7.jpg" data-fresco-group="projects">
+                    <img src="img/gallery/7.jpg" alt="">
+                </a>
+                <div class="gi-hover">
+                    <img src="img/gallery/author.jpg" alt="">
+                    <h6>Arthur Rose</h6>
+                </div>
+            </div>
+            <div class="gallery-item people filterDiv">
+                <a class="fresco" href="img/gallery/8.jpg" data-fresco-group="projects">
+                    <img src="img/gallery/8.jpg" alt="">
+                </a>
+                <div class="gi-hover">
+                    <img src="img/gallery/author.jpg" alt="">
+                    <h6>Arthur Rose</h6>
+                </div>
+            </div>
+            <div class="gallery-item animal filterDiv">
+                <a class="fresco" href="img/gallery/9.jpg" data-fresco-group="projects">
+                    <img src="img/gallery/9.jpg" alt="">
+                </a>
+                <div class="gi-hover">
+                    <img src="img/gallery/author.jpg" alt="">
+                    <h6>Arthur Rose</h6>
+                </div>
+            </div>
+            <div class="gallery-item gi-big travel filterDiv">
+                <a class="fresco" href="img/gallery/10.jpg" data-fresco-group="projects">
+                    <img src="img/gallery/10.jpg" alt="">
+                </a>
+                <div class="gi-hover">
+                    <img src="img/gallery/author.jpg" alt="">
+                    <h6>Arthur Rose</h6>
+                </div>
+            </div>
+            <div class="gallery-item featured filterDiv">
+                <a class="fresco" href="img/gallery/11.jpg" data-fresco-group="projects">
+                    <img src="img/gallery/11.jpg" alt="">
+                </a>
+                <div class="gi-hover">
+                    <img src="img/gallery/author.jpg" alt="">
+                    <h6>Arthur Rose</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
