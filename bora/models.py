@@ -2,6 +2,8 @@ from django.db import models
 from django.db.models.fields import DateField, TextField
 from django.db.models.fields.related import ForeignKey
 import datetime
+# integerField min, max value
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 from django.forms.fields import DateTimeField
 # from django.db.models.fields.related import ForeignKey, ManyToManyField
@@ -13,8 +15,8 @@ class User(models.Model):
     basketuser = models.ManyToManyField('Product', through="Basket", max_length=20, verbose_name='장바구니 사용자', related_name='basketuser')
     username = models.CharField(max_length=20, verbose_name='사용자명')
     userid = models.CharField(max_length=20, verbose_name='아이디', null=False, blank=True, default='', primary_key=True)
-    userpw = models.CharField(max_length=20, verbose_name='비밀번호')
-    userphone = models.CharField(max_length=11, verbose_name='휴대폰')
+    userpw = models.CharField(max_length=20, verbose_name='비밀번호', default='')
+    userphone = models.CharField(max_length=11, verbose_name='휴대폰', default='')
     registered = models.DateTimeField(auto_now_add = True, verbose_name='계정 생성시간')
     def __str__(self):
         return self.userid
@@ -31,7 +33,8 @@ class Product(models.Model):
     # STATE = (('P', '지난 전시'), ('C', '현재 전시'), ('U', '전시 예정'))
     # exhstat = models.CharField(max_length=1, verbose_name='전시 상태', choices=STATE)
     exhinfo = TextField(max_length=250, verbose_name='전시 정보', default="")
-    exhimage = models.ImageField(blank=True, verbose_name='전시포스터', upload_to="bora/productimage")
+    exhimage = models.ImageField(blank=True, verbose_name='전시포스터', upload_to="bora")
+    exhurl = models.URLField(verbose_name='웹사이트')
     def __str__(self):
         return self.exhname
     class Meta:
@@ -42,9 +45,10 @@ class Product(models.Model):
 class Basket(models.Model):
     who = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='예매자')
     what = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='예매 전시')
-    count = models.PositiveSmallIntegerField(default=1, verbose_name='인원')
+    count = models.PositiveSmallIntegerField(default=1, verbose_name='인원', validators=[MinValueValidator(1), MaxValueValidator(4)])
+    when = models.DateTimeField(auto_now=True, verbose_name="예매 시간")
     def __str__(self):
-        return self.who
+        return str(self.who) + ' ' + str(self.what)
     class Meta:
             db_table = 'Basket'
             verbose_name = '장바구니'
@@ -56,7 +60,7 @@ class Review(models.Model):
     exhreview = TextField(max_length=200, verbose_name='전시 리뷰')
     writetime = models.DateTimeField(auto_now=True, verbose_name="리뷰 작성 시간")
     def __str__(self):
-        return self.exhibit
+        return str(self.exhibit) + ' ' + str(self.reviewer)
     class Meta:
         db_table = 'Review'
         verbose_name = '리뷰'
