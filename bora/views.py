@@ -96,7 +96,7 @@ def signup(req):
         joined_user = User(username=req.POST.get('user_name'), userid=userid, userpw=userpw, userphone=req.POST.get('user_phone'))
         joined_user.save()
         sweetify.info(req, "회원 가입이 완료되었습니다.", timer=1200)
-        return redirect('http://49.50.164.62:8000/bora/main#section-login')
+        return redirect('http://3.38.152.216:8000/bora/main#section-login')
     else:
         return render(req, "index.html")
 
@@ -117,18 +117,18 @@ def withdrawal(req):
             else:
                 print('id 동일 pw 동일 안함')
                 sweetify.info(req, "계정 정보가 일치하지 않습니다.", timer=1200)
-                return redirect('http://49.50.164.62:8000/bora/main#section-mypage')
+                return redirect('http://3.38.152.216:8000/bora/main#section-mypage')
     except:
         print('id 동일 안함')
         sweetify.info(req, "계정 정보가 일치하지 않습니다.", timer=1200)
-        return redirect('http://49.50.164.62:8000/bora/main#section-mypage')
+        return redirect('http://3.38.152.216:8000/bora/main#section-mypage')
 
 def logout(req):
     print(req.session.get("id"))
     # req.session.clear()
     req.session.pop("id")
     print(req.session.get("id"))
-    return redirect("http://49.50.164.62:8000/bora/main")
+    return redirect("http://3.38.152.216:8000/bora/main")
 
 def edit(req):
     logged_user = User.objects.get(pk = req.session.get("id"))
@@ -139,11 +139,11 @@ def edit(req):
         logged_user.save()
         print('editsuc')
         sweetify.info(req, '성공적으로 수정되었습니다.', timer=1200)
-        return redirect('http://49.50.164.62:8000/bora/main#section-mypage')
+        return redirect('http://3.38.152.216:8000/bora/main#section-mypage')
     else:
         sweetify.warning(req, '기존 정보와 동일합니다.', timer=1200)
         print('goback')
-        return redirect('http://49.50.164.62:8000/bora/main#section-mypage')
+        return redirect('http://3.38.152.216:8000/bora/main#section-mypage')
 
 def list(req):
     context = {
@@ -158,7 +158,7 @@ def list(req):
 def detail(req, pk):
     if req.session.get("id") is None:
         sweetify.warning(req, "로그인 후 이용할 수 있습니다", timer=1200)
-        return redirect("http://49.50.164.62:8000/bora/main#section-login")
+        return redirect("http://3.38.152.216:8000/bora/main#section-login")
     else:
         exh = get_object_or_404(Product, pk=pk)
         print(exh)
@@ -210,7 +210,7 @@ def delete_res(req):
     print("nononononononno")
     Basket.objects.filter(what=Product.objects.get(pk=del_what), who=User.objects.get(pk=del_who), count=del_count).delete()
     print("ok")
-    return redirect("http://49.50.164.62:8000/bora/main#section-mypage")
+    return redirect("http://3.38.152.216:8000/bora/main#section-mypage")
 
 def ajaxleave_rev(req):
     revexh = req.GET["rev_exh"]
