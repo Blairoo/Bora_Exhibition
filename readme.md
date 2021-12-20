@@ -7,7 +7,7 @@
 </p>
 
 ## Intro
-- Bora Exhibition은 한글 '보라'를 영어로 쓰고 전시회 'Exhibition'를 덧붙혀 '전시회를 보라'는 뜻을 가졌습니다.
+- Bora Exhibition은 한글 '보라'를 영어로 쓰고 전시회 'Exhibition'를 덧붙여 '전시회를 보라'는 뜻을 가졌습니다.
 - 여러 사이트에 흩어져 있는 전시회를 <a href="http://3.38.152.216:8000/bora/main">여기</a>에서 정보를 확인하고, 예매하고, 후기를 남길 수 있습니다.
 
 ## Features
