@@ -111,7 +111,7 @@
                                 <div class="row" data-aos="fade-up">
                                     <div class="col-12 mb-3 justify-content-center">
                                         <img style="width: 100%;"
-                                            src="http://49.50.164.62:8000/bora/media/{{exh.exhimage}}">
+                                            src="http://3.38.152.216:8000/bora/media/{{exh.exhimage}}">
                                     </div>
                                     <div class="col-12 blog-content" style="width: 700px;" data-aos="fade-up">
                                         <div class="heading">{{exh.exhname}}</div>
@@ -251,6 +251,7 @@
                                     </div>
 
                                     {% if this_rev %}
+                                    <!-- 해당 상품에 대한 리뷰가 이미 있을 때 -->
                                     <div class="form-group">
                                         <label for="review">Review</label>
                                         {% for this in this_rev %}
@@ -263,6 +264,7 @@
                                             class="btn btn-primary btn-md text-white">Edit Review</button>
                                     </div>
                                     {% else %}
+                                    <!-- 해당 상품에 대한 리뷰가 없을 때 -->
                                     <div class="form-group">
                                         <label for="review">Review</label>
                                         <textarea id="review" maxlength="200" cols="10" rows="10" class="form-control"
@@ -334,7 +336,7 @@
                         }).then((result) => {
                             if (result.isConfirmed) {
                                 window.location =
-                                    "http://49.50.164.62:8000/bora/main#section-mypage"
+                                    "http://3.38.152.216:8000/bora/main#section-mypage"
                             }
                         });
                     } else {
@@ -358,7 +360,7 @@
                                 }).then((result) => {
                                     if (result.isConfirmed) {
                                         window.location =
-                                            "http://49.50.164.62:8000/bora/main#section-mypage"
+                                            "http://3.38.152.216:8000/bora/main#section-mypage"
                                     }
                                 });
                             }
